@@ -16,6 +16,8 @@ import banksystem.bank.system.exceptions.BlankEmailFieldException;
 import banksystem.bank.system.exceptions.BlankNameFieldException;
 import banksystem.bank.system.exceptions.BlankPasswordFieldException;
 import banksystem.bank.system.exceptions.ExistingEmailException;
+import banksystem.bank.system.exceptions.InvalidEmailException;
+import banksystem.bank.system.exceptions.PasswordLengthException;
 
 @RestController
 class UserController {
@@ -42,17 +44,27 @@ class UserController {
 	
 	  List<User> users = repository.findAll();
 	  HashMap<String, String> responseMessage = new HashMap<>();
-	  
+	  String EMAIL_REGEX = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
+	  Boolean validEmail = newUser.getEmail().matches(EMAIL_REGEX);
+		    
 	  if (newUser.getEmail().isBlank()) {
-		  throw new BlankEmailFieldException();
+		  throw new BlankEmailFieldException();  	  
+	  }
+	  
+	  else if (validEmail == false) {
+		  throw new InvalidEmailException();
 	  }
 	  
 	  else if (newUser.getName().isBlank()) {
 		  throw new BlankNameFieldException();
 	  }
-	  
+	 
 	  else if (newUser.getPassword().isBlank()) {
 		  throw new BlankPasswordFieldException();
+	  }
+	  
+	  else if (newUser.getPassword().length() < 8) {
+		  throw new PasswordLengthException();
 	  }
 	  
 	  else {
@@ -60,9 +72,8 @@ class UserController {
 	  for (User user : users) {
 		  if (user.getEmail().equals(newUser.getEmail())){
 			  throw new ExistingEmailException();
-		  }
-		  
-	  }
+		  }  
+	  	}
 	  }
 	  
 	  // adicionando o novo usuário no banco de dados persistente
