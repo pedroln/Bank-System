@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import banksystem.bank.system.LoggedUser;
+
 import banksystem.bank.system.User;
 import banksystem.bank.system.UserRepository;
 import banksystem.bank.system.exceptions.BlankEmailFieldException;
