@@ -12,7 +12,7 @@ public class PasswordLength {
    @ExceptionHandler(value = PasswordLengthException.class)
    public ResponseEntity<Object> exception(PasswordLengthException exception) {
 	  HashMap<String, String> responseMessage = new HashMap<>();
-	  responseMessage.put("erro:", "tamanho da senha é menor do que o recomendado (8 caracteres)");
+	  responseMessage.put("erro:", "tamanho da senha é menor do que o recomendado (8 caracteres)o");
       return new ResponseEntity<>(responseMessage, HttpStatus.BAD_REQUEST);
    }
    
