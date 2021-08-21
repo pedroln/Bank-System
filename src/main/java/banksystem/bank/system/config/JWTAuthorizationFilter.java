@@ -23,7 +23,6 @@ import io.jsonwebtoken.UnsupportedJwtException;
 public class JWTAuthorizationFilter extends OncePerRequestFilter {
 
 	private final String HEADER = "Authorization";
-	private final String PREFIX = "Bearer ";
 	private final String SECRET = "mySecretKey";
 
 	@Override
@@ -48,7 +47,7 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
 	}	
 
 	private Claims validateToken(HttpServletRequest request) {
-		String jwtToken = request.getHeader(HEADER).replace(PREFIX, "");
+		String jwtToken = request.getHeader(HEADER);
 		return Jwts.parser().setSigningKey(SECRET.getBytes()).parseClaimsJws(jwtToken).getBody();
 	}
 
@@ -69,7 +68,7 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
 
 	private boolean checkJWTToken(HttpServletRequest request, HttpServletResponse res) {
 		String authenticationHeader = request.getHeader(HEADER);
-		if (authenticationHeader == null || !authenticationHeader.startsWith(PREFIX))
+		if (authenticationHeader == null)
 			return false;
 		return true;
 	}

@@ -13,7 +13,7 @@ public class User {
   private String email;
   private String name;
   private String password;
-  private String token;
+  
   
   public User() {  
   }  
@@ -66,12 +66,5 @@ public int hashCode() {
   return Objects.hash(this.id, this.name, this.password);
 }
 
-public void setToken(String token) {
-	this.token = token;
-	
-}
- 
-public String getToken() {
-	return token;
-}
+
 }

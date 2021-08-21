@@ -1,8 +1,10 @@
 package banksystem.bank.system;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+@Entity
 public class LoggedUser {
 	private String email;
 	private String name;
