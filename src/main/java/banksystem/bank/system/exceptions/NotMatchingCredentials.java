@@ -8,11 +8,11 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @ControllerAdvice
-public class PasswordLength {
-   @ExceptionHandler(value = PasswordLengthException.class)
-   public ResponseEntity<Object> exception(PasswordLengthException exception) {
+public class NotMatchingCredentials {
+   @ExceptionHandler(value = NotMatchingCredentialsException.class)
+   public ResponseEntity<Object> exception(NotMatchingCredentialsException exception) {
 	  HashMap<String, String> responseMessage = new HashMap<>();
-	  responseMessage.put("erro:", "tamanho da senha é menor do que o recomendado (8 caracteres)");
+	  responseMessage.put("erro:", "credenciais enviadas não encontradas no banco de dados");
       return new ResponseEntity<>(responseMessage, HttpStatus.BAD_REQUEST);
    }
    

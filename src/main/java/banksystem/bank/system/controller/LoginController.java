@@ -16,6 +16,7 @@ import banksystem.bank.system.LoginRepository;
 import banksystem.bank.system.User;
 import banksystem.bank.system.UserRepository;
 import banksystem.bank.system.exceptions.BlankEmailFieldException;
+import banksystem.bank.system.exceptions.NotMatchingCredentialsException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
@@ -59,7 +60,7 @@ public class LoginController {
 			  }
 		  } 
 	  }
-	  throw new BlankEmailFieldException();  
+	  throw new NotMatchingCredentialsException();  
   }
   
   private String getJWTToken(String username) {

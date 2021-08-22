@@ -16,6 +16,8 @@ import banksystem.bank.system.LoggedUser;
 import banksystem.bank.system.LoginRepository;
 import banksystem.bank.system.User;
 import banksystem.bank.system.exceptions.ExistingAccountNumberException;
+import banksystem.bank.system.exceptions.FieldNotOnBodyException;
+import banksystem.bank.system.exceptions.InvalidBalanceException;
 import banksystem.bank.system.exceptions.TokenNotMatchingException;
 
 	@RestController
@@ -42,18 +44,33 @@ import banksystem.bank.system.exceptions.TokenNotMatchingException;
 			  List<LoggedUser> loggedUsers = loginRepository.findAll();
 			  List<Account> registeredAccounts = accountRepository.findAll();
 			  HashMap<String, String> responseMessage = new HashMap<>(); 
+			  String balance = String.valueOf(newAccount.getBalance());
+			  
+			  
 			
 			  if(loggedUsers.isEmpty()) {
 				  throw new TokenNotMatchingException();
 			  	}
 			  
+			  if (newAccount.getNumber() == null) {
+				  throw new FieldNotOnBodyException();
+			  }
+			  
 			  for (LoggedUser loggedUser : loggedUsers) {
+				  
 				 
 				  if (loggedUser.getToken().equals(token)){
 					  
 					  if (registeredAccounts.isEmpty()) {
+						    
+						  if (newAccount.getBalance() < 0.0) {
+					
+							  throw new InvalidBalanceException();
+						  }
+						  
+						  
 						  responseMessage.put("number", newAccount.getNumber());
-						  responseMessage.put("balance", newAccount.getBalance());
+						  responseMessage.put("balance", balance);
 						  responseMessage.put("email", loggedUser.getEmail());
 						  responseMessage.put("name", loggedUser.getName());
 						  accountRepository.save(newAccount);
@@ -67,16 +84,22 @@ import banksystem.bank.system.exceptions.TokenNotMatchingException;
 								  
 								  throw new ExistingAccountNumberException();
 							  }
+						  }
+							  
+							  if (newAccount.getBalance() < 0.0) {
+								  
+								  throw new InvalidBalanceException();
+							  }
 							  
 							  else {
 								  responseMessage.put("number", newAccount.getNumber());
-								  responseMessage.put("balance", newAccount.getBalance());
+								  responseMessage.put("balance", balance);
 								  responseMessage.put("email", loggedUser.getEmail());
 								  responseMessage.put("name", loggedUser.getName());
 								  accountRepository.save(newAccount);
 							  }
 							
-						  }
+						  
 					  }
 				  }
 				  else {
@@ -84,11 +107,7 @@ import banksystem.bank.system.exceptions.TokenNotMatchingException;
 				  }
 						  	
 			  }
-				  
-				  	
-			  
 			  return new ResponseEntity<>(responseMessage, HttpStatus.OK);
-			  
 			  	}
 		  
 	

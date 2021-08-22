@@ -9,13 +9,13 @@ public class Account {
 
   private @Id @GeneratedValue Long id;	
   private String number;
-  private String balance;
+  private float balance;
   
   
   public Account() {  
   }  
   
-  Account(String number, String balance, User user) {
+  Account(String number, float balance, User user) {
 	  	
 	    this.number = number;
 	    this.balance = balance;
@@ -30,11 +30,11 @@ public void setNumber(String number) {
 	this.number = number;
 }
 
-public String getBalance() {
+public float getBalance() {
 	return balance;
 }
 
-public void setBalance(String balance) {
+public void setBalance(float balance) {
 	this.balance = balance;
 }
 }

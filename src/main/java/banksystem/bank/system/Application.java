@@ -31,6 +31,7 @@ public class Application {
 				.antMatchers(HttpMethod.GET, "/users").permitAll()
 				.antMatchers(HttpMethod.POST, "/users").permitAll()
 				.antMatchers(HttpMethod.POST, "/auth").permitAll()
+				.antMatchers(HttpMethod.GET, "/logged").permitAll()
 				.anyRequest().authenticated();
 		}
 	}
