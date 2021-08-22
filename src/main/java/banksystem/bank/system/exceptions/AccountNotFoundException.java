@@ -1,6 +1,6 @@
 package banksystem.bank.system.exceptions;
 
-public class BlankEmailFieldException extends RuntimeException {
+public class AccountNotFoundException extends RuntimeException {
 
 	/**
 	 * 

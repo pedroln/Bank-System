@@ -32,6 +32,7 @@ public class Application {
 				.antMatchers(HttpMethod.POST, "/users").permitAll()
 				.antMatchers(HttpMethod.POST, "/auth").permitAll()
 				.antMatchers(HttpMethod.GET, "/logged").permitAll()
+				.antMatchers(HttpMethod.GET, "/accountlist").permitAll()
 				.anyRequest().authenticated();
 		}
 	}

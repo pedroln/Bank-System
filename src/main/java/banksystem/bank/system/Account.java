@@ -7,7 +7,7 @@ import javax.persistence.Id;
 @Entity
 public class Account {
 
-  private @Id @GeneratedValue Long id;	
+  private @Id @GeneratedValue long id;	
   private String number;
   private float balance;
   
@@ -37,4 +37,8 @@ public float getBalance() {
 public void setBalance(float balance) {
 	this.balance = balance;
 }
+
+
+
+
 }
