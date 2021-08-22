@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -32,7 +33,11 @@ public class LoginController {
 	    
 	    
 	  }
-	  
+	@GetMapping("/logged")
+	 List<LoggedUser> all() {
+	    return loginRepository.findAll();
+	  }  
+	
 	@PostMapping("/auth")
 	public LoggedUser login(@RequestBody User newUser) {
 	  List<User> users = repository.findAll();

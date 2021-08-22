@@ -31,20 +31,14 @@ class UserController {
 
   UserController(UserRepository repository) {
     this.repository = repository;
-    
-    
+      
   }
-
-
   
   @GetMapping("/users")
   List<User> all() {
     return repository.findAll();
   }
   
-  
-
-
   @PostMapping("/users")
   ResponseEntity<Object> newUser(@RequestBody User newUser) {
 	
