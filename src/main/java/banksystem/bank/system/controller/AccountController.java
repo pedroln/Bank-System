@@ -49,11 +49,7 @@ import banksystem.bank.system.exceptions.TokenNotMatchingException;
 			  boolean foundAccount = false;
 			  String email = null;
 			  String name = null;
-			  
-			  
-			  
-			  
-			
+	
 			  if(loggedUsers.isEmpty()) {
 				  throw new TokenNotMatchingException();
 			  	}
