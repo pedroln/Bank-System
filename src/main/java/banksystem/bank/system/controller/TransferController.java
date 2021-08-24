@@ -16,6 +16,7 @@ import banksystem.bank.system.LoggedUser;
 import banksystem.bank.system.LoginRepository;
 import banksystem.bank.system.Transference;
 import banksystem.bank.system.exceptions.AccountNotFoundException;
+import banksystem.bank.system.exceptions.AccountNotLoggedException;
 import banksystem.bank.system.exceptions.DestinyAccountNotFoundException;
 import banksystem.bank.system.exceptions.FieldNotOnBodyException;
 import banksystem.bank.system.exceptions.InsuficientBalanceException;
@@ -48,12 +49,12 @@ public class TransferController {
 		  boolean foundAccount = false;
 		  boolean sourceAccount = false;
 		  boolean destinyAccount = false;
-		  String sourceAccountNumber = null;
+		  boolean loggedAccount = false;
 		  float sourceAccountBalance = 0;
-		  String destinyAccountNumber = null;
 		  float destinyAccountBalance = 0;
 		  String user_email = null;
 		  String user_name = null;
+		  String sourceAccountEmail = null;
 		  
 
 		  if(loggedUsers.isEmpty()) {
@@ -71,8 +72,10 @@ public class TransferController {
 				  user_email = loggedUser.getEmail();
 				  user_name = loggedUser.getName();
 				  
+				  
 			  }
 		  }
+		  
 		  
 		  if (foundAccount == true) {
 			  
@@ -85,17 +88,25 @@ public class TransferController {
 					
 					  if (chosenAccount.getNumber().equals(transference.getSource_account())) {	
 						  sourceAccount = true;
-						  sourceAccountNumber = chosenAccount.getNumber();
 						  sourceAccountBalance = chosenAccount.getBalance();
-						  
+						  sourceAccountEmail = chosenAccount.getEmail();
+
 					  }
 				  }
 				  
-				  if (sourceAccount == true) {
+				  if (user_email.equals(sourceAccountEmail)) {
+					  loggedAccount = true;
+				  }
+				  
+				  else {
+					  new AccountNotLoggedException();
+				  }
+				  
+				  
+				  if (sourceAccount == true && loggedAccount == true) {
 					  for (Account chosenAccount : registeredAccounts) {
 						  if (chosenAccount.getNumber().equals(transference.getDestiny_account())) {
 							  destinyAccount = true;
-							  destinyAccountNumber = chosenAccount.getNumber();
 							  destinyAccountBalance = chosenAccount.getBalance();
 						  }
 					  }  
@@ -108,7 +119,7 @@ public class TransferController {
 				  if (destinyAccount == true) {
 					  float ammount = transference.getAmmount();
 					  
-					  if (ammount <= 0) {
+					  if (ammount < 0.0) {
 						  throw new InvalidAmmountException();
 						  
 					  }
@@ -142,10 +153,7 @@ public class TransferController {
 				  else {
 					  throw new DestinyAccountNotFoundException();
 				  }
-					  
-					
-					  
-					  
+	  
 			  }
 		  }
 	  

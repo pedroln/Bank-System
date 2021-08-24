@@ -8,12 +8,13 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @ControllerAdvice
-public class AccountNotFound {
-   @ExceptionHandler(value = AccountNotFoundException.class)
-   public ResponseEntity<Object> exception(AccountNotFoundException exception) {
+public class AccountNotLogged {
+   @ExceptionHandler(value = AccountNotLoggedException.class)
+   public ResponseEntity<Object> exception(AccountNotLoggedException exception) {
 	  HashMap<String, String> responseMessage = new HashMap<>();
-	  responseMessage.put("erro:", "conta não encontrada para o usuário informado");
+	  responseMessage.put("erro:", "conta de destino não pertence ao usuário logado");
       return new ResponseEntity<>(responseMessage, HttpStatus.BAD_REQUEST);
    }
    
 }
+

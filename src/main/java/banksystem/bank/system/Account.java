@@ -10,15 +10,19 @@ public class Account {
   private @Id @GeneratedValue long id;	
   private String number;
   private float balance;
+  private String email;
   
   
-  public Account() {  
+
+
+public Account() {  
   }  
   
-  Account(String number, float balance, User user) {
+  Account(String number, float balance, User user, String email) {
 	  	
 	    this.number = number;
 	    this.balance = balance;
+	    this.email = email;
 	    
 	  }
 
@@ -38,6 +42,13 @@ public void setBalance(float balance) {
 	this.balance = balance;
 }
 
+public String getEmail() {
+	return email;
+}
+
+public void setEmail(String email) {
+	this.email = email;
+}
 
 
 

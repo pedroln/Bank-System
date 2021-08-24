@@ -37,7 +37,10 @@ public class BalanceController {
 		  List<Account> registeredAccounts = accountRepository.findAll();
 		  boolean foundAccount = false;
 		  boolean foundAccountBalance = false;
+		  boolean loggedAccount = false;
 		  Account returnAccount = new Account ();
+		  String user_email = null;
+		  String balanceAccount = null;
 		  
 		  
 		  
@@ -53,12 +56,10 @@ public class BalanceController {
 
 			  if (loggedUser.getToken().equals(token)){
 				  foundAccount = true;  
- 
+				  user_email = loggedUser.getEmail();
 			  }
 			  
-			  else {
-				  throw new TokenNotMatchingException();
-			  }
+			  
 		  }
 		  
 		  if(foundAccount == true) {
@@ -66,20 +67,30 @@ public class BalanceController {
 					  if (registeredAccounts.isEmpty()) {
 						  throw new AccountNotFoundException();
 					  }
+					  
 					  else {
 						  for (Account accounts : registeredAccounts) {
 							 if (accounts.getNumber().equals(selectedAccount.getNumber())) {
 								 foundAccountBalance = true;
 								 returnAccount = accounts;
+								 balanceAccount = accounts.getEmail();
 							 }
+							 
 						  }
-					  }	  
-					  
-					  if (foundAccountBalance == true){
-						  return new ResponseEntity<>(returnAccount, HttpStatus.OK);
-					  }
-					  else {
-						  throw new AccountNotFoundException();
+						  
+						  if (foundAccountBalance == true) {
+						  
+							  if(balanceAccount.equals(user_email)) {
+								  loggedAccount = true;
+							  }
+						  }	  
+						  
+						  if (foundAccountBalance == true && loggedAccount == true){
+							  return new ResponseEntity<>(returnAccount, HttpStatus.OK);
+						  }
+						  else {
+							  throw new AccountNotFoundException();
+						  }
 					  }
 				  
 			  

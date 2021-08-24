@@ -84,6 +84,7 @@ import banksystem.bank.system.exceptions.TokenNotMatchingException;
 					  responseMessage.put("balance", balance);
 					  responseMessage.put("email", email);
 					  responseMessage.put("name", name);
+					  newAccount.setEmail(email);
 					  accountRepository.save(newAccount);
 					  
 				  }
@@ -107,6 +108,7 @@ import banksystem.bank.system.exceptions.TokenNotMatchingException;
 							  responseMessage.put("balance", balance);
 							  responseMessage.put("email", email);
 							  responseMessage.put("name", name);
+							  newAccount.setEmail(email);
 							  accountRepository.save(newAccount);
 						  }
 				  }
