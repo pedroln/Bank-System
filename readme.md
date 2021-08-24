@@ -154,13 +154,13 @@ Requisitos que ficaram pendentes:
 - CHECAGEM COM SUCESSO (se a conta de checagem não estiver com o token da header atrelado a conta de usuário que a criou, uma exceção irá ser retornada falando que a conta não existe para o usuário em questão)
 
 {
-    "source_account" : "123-4"
+    "number" : "123-4"
 }
 
 - EXCEÇÃO: CONTA PARA CHECAGEM NÃO EXISTENTE (basta inserir um número de conta que não se encontra na database)
 
 {
-    "source_account" : "123-5"
+    "number" : "123-5"
 }
 
 
