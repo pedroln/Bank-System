@@ -13,6 +13,8 @@ Requisitos que ficaram pendentes:
 
 <h4> INFORMAÇÕES IMPORTANTES </h4>
 
+<h5> - Para iniciar a API, basta rodar a classe Application como um Spring Boot App. </h5>
+
 <h5>- Foi se utilizado a database persistente JPA para guardar as entidades USUÁRIO, CONTA DE BANCO E USUÁRIOS LOGADOS em um repositório. Logo, tudo ficará salvo enquanto o Spring Boot não tiver sido fechado/reiniciado.</h5>
 
 <h5>- Todos os testes foram feitos usando as rotas especificadas via postman, a seguir irá ser listado os body em JSON de modo que a requisição seja feita com sucesso para cada requisito (e também para dar trigger em cada exceção que foi criada).</h5>
