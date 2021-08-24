@@ -1,4 +1,4 @@
-DESAFIO MAIDA - BANK SYSTEM
+<h2> DESAFIO MAIDA - BANK SYSTEM </h2>
 
 Requisitos que foram feitos com sucesso:
 - Adicionar Usuário 
@@ -17,7 +17,7 @@ Requisitos que ficaram pendentes:
 
 <h5>- Todos os testes foram feitos usando as rotas especificadas via postman, a seguir irá ser listado os body em JSON de modo que a requisição seja feita com sucesso para cada requisito (e também para dar trigger em cada exceção que foi criada).</h5>
 
-<h3> ATENÇÃO - FORAM CRIADAS ROTAS GET DE MODO QUE POSSA SE CHECAR OS REPOSITÓRIOS DE CADA ENTIDADE (USUÁRIO, CONTAS DE BANCO E USUÁRIOS LOGADOS E SEUS TOKENS) SEGUE SUAS ROTAS PARA PUXAR ESTAS INFORMAÇÕES
+<h3> ATENÇÃO - FORAM CRIADAS ROTAS GET DE MODO QUE POSSA SE CHECAR OS REPOSITÓRIOS DE CADA ENTIDADE (USUÁRIO, CONTAS DE BANCO E USUÁRIOS LOGADOS E SEUS TOKENS) SEGUE SUAS ROTAS PARA PUXAR ESTAS INFORMAÇÕES </h3>
   
   - CHECAR USUÁRIOS REGISTRADOS - ROTA - GET localhost:8080/users 
   - CHECAR CONTAS DE BANCO REGISTRADAS - ROTA - GET localhost:8080/accountlist
