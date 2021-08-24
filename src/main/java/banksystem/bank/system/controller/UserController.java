@@ -45,19 +45,25 @@ class UserController {
 	
 	  List<User> users = repository.findAll();
 	  HashMap<String, String> responseMessage = new HashMap<>();
-	  String EMAIL_REGEX = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
-	  Boolean validEmail = newUser.getEmail().matches(EMAIL_REGEX);
+	  
 	  
 	  if (newUser.getEmail() == null || newUser.getName() == null || newUser.getPassword() == null) {
 		  throw new FieldNotOnBodyException();
 	  }
 	  
+	  
 	  else {
+		  
+		  String EMAIL_REGEX = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
+		  Boolean validEmail = newUser.getEmail().matches(EMAIL_REGEX);
+		  
 		  if (newUser.getEmail().isBlank()) {
 			  throw new BlankEmailFieldException();  	  
 		  }
 		  
+		  
 		  else if (validEmail == false) {
+			  
 			  throw new InvalidEmailException();
 		  }
 		  
