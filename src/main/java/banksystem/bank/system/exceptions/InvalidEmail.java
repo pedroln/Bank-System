@@ -9,11 +9,11 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @ControllerAdvice
 public class InvalidEmail {
-   @ExceptionHandler(value = InvalidEmailException.class)
-   public ResponseEntity<Object> exception(InvalidEmailException exception) {
-	  HashMap<String, String> responseMessage = new HashMap<>();
-	  responseMessage.put("erro:", "email não se adequa as regras de um email válido");
-      return new ResponseEntity<>(responseMessage, HttpStatus.BAD_REQUEST);
-   }
-   
+	@ExceptionHandler(value = InvalidEmailException.class)
+	public ResponseEntity<Object> exception(InvalidEmailException exception) {
+		HashMap<String, String> responseMessage = new HashMap<>();
+		responseMessage.put("erro:", "email não se adequa as regras de um email válido");
+		return new ResponseEntity<>(responseMessage, HttpStatus.BAD_REQUEST);
+	}
+
 }

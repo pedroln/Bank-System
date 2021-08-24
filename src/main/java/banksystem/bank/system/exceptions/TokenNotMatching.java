@@ -9,11 +9,11 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @ControllerAdvice
 public class TokenNotMatching {
-   @ExceptionHandler(value = TokenNotMatchingException.class)
-   public ResponseEntity<Object> exception(TokenNotMatchingException exception) {
-	  HashMap<String, String> responseMessage = new HashMap<>();
-	  responseMessage.put("message:", "Acesso Negado");
-      return new ResponseEntity<>(responseMessage, HttpStatus.UNAUTHORIZED);
-   }
-   
+	@ExceptionHandler(value = TokenNotMatchingException.class)
+	public ResponseEntity<Object> exception(TokenNotMatchingException exception) {
+		HashMap<String, String> responseMessage = new HashMap<>();
+		responseMessage.put("message:", "Acesso Negado");
+		return new ResponseEntity<>(responseMessage, HttpStatus.UNAUTHORIZED);
+	}
+
 }

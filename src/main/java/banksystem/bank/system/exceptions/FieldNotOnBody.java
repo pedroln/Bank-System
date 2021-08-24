@@ -9,11 +9,11 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @ControllerAdvice
 public class FieldNotOnBody {
-   @ExceptionHandler(value = FieldNotOnBodyException.class)
-   public ResponseEntity<Object> exception(FieldNotOnBodyException exception) {
-	  HashMap<String, String> responseMessage = new HashMap<>();
-      responseMessage.put("erro:", "algum dos campos necessários não se encontram na requisição"); 
-      return new ResponseEntity<>(responseMessage, HttpStatus.BAD_REQUEST);
-   }
-   
+	@ExceptionHandler(value = FieldNotOnBodyException.class)
+	public ResponseEntity<Object> exception(FieldNotOnBodyException exception) {
+		HashMap<String, String> responseMessage = new HashMap<>();
+		responseMessage.put("erro:", "algum dos campos necessários não se encontram na requisição");
+		return new ResponseEntity<>(responseMessage, HttpStatus.BAD_REQUEST);
+	}
+
 }

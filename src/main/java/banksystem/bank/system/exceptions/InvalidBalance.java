@@ -9,11 +9,11 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @ControllerAdvice
 public class InvalidBalance {
-   @ExceptionHandler(value = InvalidBalanceException.class)
-   public ResponseEntity<Object> exception(InvalidBalanceException exception) {
-	  HashMap<String, String> responseMessage = new HashMap<>();
-      responseMessage.put("erro:", "saldo deve ser maior ou igual a zero"); 
-      return new ResponseEntity<>(responseMessage, HttpStatus.BAD_REQUEST);
-   }
-   
+	@ExceptionHandler(value = InvalidBalanceException.class)
+	public ResponseEntity<Object> exception(InvalidBalanceException exception) {
+		HashMap<String, String> responseMessage = new HashMap<>();
+		responseMessage.put("erro:", "saldo deve ser maior ou igual a zero");
+		return new ResponseEntity<>(responseMessage, HttpStatus.BAD_REQUEST);
+	}
+
 }

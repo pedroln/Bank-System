@@ -1,3 +1,7 @@
+/**
+Author - Pedro de Oliveira Lima Nunes
+*/
+
 package banksystem.bank.system.config;
 
 import java.io.IOException;
@@ -26,7 +30,8 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
 	private final String SECRET = "mySecretKey";
 
 	@Override
-	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
+	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
+			throws ServletException, IOException {
 		try {
 			if (checkJWTToken(request, response)) {
 				Claims claims = validateToken(request);
@@ -35,7 +40,7 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
 				} else {
 					SecurityContextHolder.clearContext();
 				}
-			}else {
+			} else {
 				SecurityContextHolder.clearContext();
 			}
 			chain.doFilter(request, response);
@@ -44,14 +49,13 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
 			((HttpServletResponse) response).sendError(HttpServletResponse.SC_FORBIDDEN, e.getMessage());
 			return;
 		}
-	}	
+	}
 
 	private Claims validateToken(HttpServletRequest request) {
 		String jwtToken = request.getHeader(HEADER);
 		return Jwts.parser().setSigningKey(SECRET.getBytes()).parseClaimsJws(jwtToken).getBody();
 	}
 
-	
 	private void setUpSpringAuthentication(Claims claims) {
 		@SuppressWarnings("unchecked")
 		List<String> authorities = (List) claims.get("authorities");

@@ -1,3 +1,7 @@
+/**
+Author - Pedro de Oliveira Lima Nunes
+*/
+
 package banksystem.bank.system.controller;
 
 import java.util.HashMap;
@@ -26,145 +30,136 @@ import banksystem.bank.system.exceptions.TokenNotMatchingException;
 
 @RestController
 public class TransferController {
-	
-	  private final LoginRepository loginRepository;
-	  private final AccountRepository accountRepository;
-	  
-	  TransferController(LoginRepository loginRepository, AccountRepository accountRepository) {
-	    
-	    this.loginRepository = loginRepository;
-	    this.accountRepository = accountRepository;
-	        
-	  }
-	  
-	  
 
-	  @PostMapping("accounts/transfer")
-	  ResponseEntity<Object> newAccount(@RequestHeader("Authorization") String token, @RequestBody Transference transference) {
-		
-		  List<LoggedUser> loggedUsers = loginRepository.findAll();
-		  List<Account> registeredAccounts = accountRepository.findAll();
-		  HashMap<String, String> responseMessage = new HashMap<>(); 
-		  String transferAmmount = String.valueOf(transference.getAmmount());
-		  boolean foundAccount = false;
-		  boolean sourceAccount = false;
-		  boolean destinyAccount = false;
-		  boolean loggedAccount = false;
-		  float sourceAccountBalance = 0;
-		  float destinyAccountBalance = 0;
-		  String user_email = null;
-		  String user_name = null;
-		  String sourceAccountEmail = null;
-		  
+	private final LoginRepository loginRepository;
+	private final AccountRepository accountRepository;
 
-		  if(loggedUsers.isEmpty()) {
-			  throw new TokenNotMatchingException();
-		  	}
-		  
-		  if (transference.getDestiny_account() == null || transference.getSource_account() == null) {
-			  throw new FieldNotOnBodyException();
-		  }
-		  
-		  for (LoggedUser loggedUser : loggedUsers) {
+	TransferController(LoginRepository loginRepository, AccountRepository accountRepository) {
 
-			  if (loggedUser.getToken().equals(token)){
-				  foundAccount = true;
-				  user_email = loggedUser.getEmail();
-				  user_name = loggedUser.getName();
-				  
-				  
-			  }
-		  }
-		  
-		  
-		  if (foundAccount == true) {
-			  
-			  if (registeredAccounts.isEmpty()) {
-				  throw new AccountNotFoundException();
-			  }
-			  else {
-			      
-				  for (Account chosenAccount : registeredAccounts ) {
-					
-					  if (chosenAccount.getNumber().equals(transference.getSource_account())) {	
-						  sourceAccount = true;
-						  sourceAccountBalance = chosenAccount.getBalance();
-						  sourceAccountEmail = chosenAccount.getEmail();
+		this.loginRepository = loginRepository;
+		this.accountRepository = accountRepository;
 
-					  }
-				  }
-				  
-				  if (user_email.equals(sourceAccountEmail)) {
-					  loggedAccount = true;
-				  }
-				  
-				  else {
-					  new AccountNotLoggedException();
-				  }
-				  
-				  
-				  if (sourceAccount == true && loggedAccount == true) {
-					  for (Account chosenAccount : registeredAccounts) {
-						  if (chosenAccount.getNumber().equals(transference.getDestiny_account())) {
-							  destinyAccount = true;
-							  destinyAccountBalance = chosenAccount.getBalance();
-						  }
-					  }  
-				  }
-				  
-				  else {
-					  throw new SourceAccountNotFoundException();
-				  }
-				  
-				  if (destinyAccount == true) {
-					  float ammount = transference.getAmmount();
-					  
-					  if (ammount < 0.0) {
-						  throw new InvalidAmmountException();
-						  
-					  }
-					  
-					  if ( sourceAccountBalance - ammount < 0) {
-						  throw new InsuficientBalanceException();
-						  
-					  }
-						  
-					  else {
-						  for (Account chosenAccount : registeredAccounts) {
-							  if (chosenAccount.getNumber().equals(transference.getSource_account())) {	
-								  chosenAccount.setBalance(sourceAccountBalance - ammount);
-								  accountRepository.save(chosenAccount);
-							  }
-							  if (chosenAccount.getNumber().equals(transference.getDestiny_account())) {
-								  chosenAccount.setBalance(destinyAccountBalance + ammount);
-								  accountRepository.save(chosenAccount);
-							  }
-						  }
-						  
-						 responseMessage.put("ammount", transferAmmount);
-						 responseMessage.put("source_account_number", transference.getSource_account());
-						 responseMessage.put("destiny_account_number", transference.getDestiny_account());
-						 responseMessage.put("email_transfer", user_email);
-						 responseMessage.put("name_transfer", user_name);
-						 
-					  }
-				  }
-				  
-				  else {
-					  throw new DestinyAccountNotFoundException();
-				  }
-	  
-			  }
-		  }
-	  
-		  else {
-			  throw new TokenNotMatchingException();
-		  }
-		  
-		  
+	}
 
-		  return new ResponseEntity<>(responseMessage, HttpStatus.OK);
-		  	
-		
-	  }
+	@PostMapping("accounts/transfer")
+	ResponseEntity<Object> newAccount(@RequestHeader("Authorization") String token,
+			@RequestBody Transference transference) {
+
+		List<LoggedUser> loggedUsers = loginRepository.findAll();
+		List<Account> registeredAccounts = accountRepository.findAll();
+		HashMap<String, String> responseMessage = new HashMap<>();
+		String transferAmmount = String.valueOf(transference.getAmmount());
+		boolean foundAccount = false;
+		boolean sourceAccount = false;
+		boolean destinyAccount = false;
+		boolean loggedAccount = false;
+		float sourceAccountBalance = 0;
+		float destinyAccountBalance = 0;
+		String user_email = null;
+		String user_name = null;
+		String sourceAccountEmail = null;
+
+		if (loggedUsers.isEmpty()) {
+			throw new TokenNotMatchingException();
+		}
+
+		if (transference.getDestiny_account() == null || transference.getSource_account() == null) {
+			throw new FieldNotOnBodyException();
+		}
+
+		for (LoggedUser loggedUser : loggedUsers) {
+
+			if (loggedUser.getToken().equals(token)) {
+				foundAccount = true;
+				user_email = loggedUser.getEmail();
+				user_name = loggedUser.getName();
+
+			}
+		}
+
+		if (foundAccount == true) {
+
+			if (registeredAccounts.isEmpty()) {
+				throw new AccountNotFoundException();
+			} else {
+
+				for (Account chosenAccount : registeredAccounts) {
+
+					if (chosenAccount.getNumber().equals(transference.getSource_account())) {
+						sourceAccount = true;
+						sourceAccountBalance = chosenAccount.getBalance();
+						sourceAccountEmail = chosenAccount.getEmail();
+
+					}
+				}
+
+				if (user_email.equals(sourceAccountEmail)) {
+					loggedAccount = true;
+				}
+
+				else {
+					new AccountNotLoggedException();
+				}
+
+				if (sourceAccount == true && loggedAccount == true) {
+					for (Account chosenAccount : registeredAccounts) {
+						if (chosenAccount.getNumber().equals(transference.getDestiny_account())) {
+							destinyAccount = true;
+							destinyAccountBalance = chosenAccount.getBalance();
+						}
+					}
+				}
+
+				else {
+					throw new SourceAccountNotFoundException();
+				}
+
+				if (destinyAccount == true) {
+					float ammount = transference.getAmmount();
+
+					if (ammount < 0.0) {
+						throw new InvalidAmmountException();
+
+					}
+
+					if (sourceAccountBalance - ammount < 0) {
+						throw new InsuficientBalanceException();
+
+					}
+
+					else {
+						for (Account chosenAccount : registeredAccounts) {
+							if (chosenAccount.getNumber().equals(transference.getSource_account())) {
+								chosenAccount.setBalance(sourceAccountBalance - ammount);
+								accountRepository.save(chosenAccount);
+							}
+							if (chosenAccount.getNumber().equals(transference.getDestiny_account())) {
+								chosenAccount.setBalance(destinyAccountBalance + ammount);
+								accountRepository.save(chosenAccount);
+							}
+						}
+
+						responseMessage.put("ammount", transferAmmount);
+						responseMessage.put("source_account_number", transference.getSource_account());
+						responseMessage.put("destiny_account_number", transference.getDestiny_account());
+						responseMessage.put("email_transfer", user_email);
+						responseMessage.put("name_transfer", user_name);
+
+					}
+				}
+
+				else {
+					throw new DestinyAccountNotFoundException();
+				}
+
+			}
+		}
+
+		else {
+			throw new TokenNotMatchingException();
+		}
+
+		return new ResponseEntity<>(responseMessage, HttpStatus.OK);
+
+	}
 }

@@ -9,11 +9,11 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @ControllerAdvice
 public class InsuficientBalance {
-   @ExceptionHandler(value = InsuficientBalanceException.class)
-   public ResponseEntity<Object> exception(InsuficientBalanceException exception) {
-	  HashMap<String, String> responseMessage = new HashMap<>();
-      responseMessage.put("erro:", "saldo insuficiente para transferência"); 
-      return new ResponseEntity<>(responseMessage, HttpStatus.BAD_REQUEST);
-   }
-   
+	@ExceptionHandler(value = InsuficientBalanceException.class)
+	public ResponseEntity<Object> exception(InsuficientBalanceException exception) {
+		HashMap<String, String> responseMessage = new HashMap<>();
+		responseMessage.put("erro:", "saldo insuficiente para transferência");
+		return new ResponseEntity<>(responseMessage, HttpStatus.BAD_REQUEST);
+	}
+
 }

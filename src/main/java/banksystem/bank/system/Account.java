@@ -1,3 +1,8 @@
+/**
+Author - Pedro de Oliveira Lima Nunes
+*/
+
+
 package banksystem.bank.system;
 
 import javax.persistence.Entity;
@@ -7,49 +12,44 @@ import javax.persistence.Id;
 @Entity
 public class Account {
 
-  private @Id @GeneratedValue long id;	
-  private String number;
-  private float balance;
-  private String email;
-  
-  
+	private @Id @GeneratedValue long id;
+	private String number;
+	private float balance;
+	private String email;
 
+	public Account() {
+	}
 
-public Account() {  
-  }  
-  
-  Account(String number, float balance, User user, String email) {
-	  	
-	    this.number = number;
-	    this.balance = balance;
-	    this.email = email;
-	    
-	  }
+	Account(String number, float balance, User user, String email) {
 
-public String getNumber() {
-	return number;
-}
+		this.number = number;
+		this.balance = balance;
+		this.email = email;
 
-public void setNumber(String number) {
-	this.number = number;
-}
+	}
 
-public float getBalance() {
-	return balance;
-}
+	public String getNumber() {
+		return number;
+	}
 
-public void setBalance(float balance) {
-	this.balance = balance;
-}
+	public void setNumber(String number) {
+		this.number = number;
+	}
 
-public String getEmail() {
-	return email;
-}
+	public float getBalance() {
+		return balance;
+	}
 
-public void setEmail(String email) {
-	this.email = email;
-}
+	public void setBalance(float balance) {
+		this.balance = balance;
+	}
 
+	public String getEmail() {
+		return email;
+	}
 
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
 }

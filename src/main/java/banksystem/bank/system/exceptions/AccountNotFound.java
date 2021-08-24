@@ -9,11 +9,11 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @ControllerAdvice
 public class AccountNotFound {
-   @ExceptionHandler(value = AccountNotFoundException.class)
-   public ResponseEntity<Object> exception(AccountNotFoundException exception) {
-	  HashMap<String, String> responseMessage = new HashMap<>();
-	  responseMessage.put("erro:", "conta não encontrada para o usuário informado");
-      return new ResponseEntity<>(responseMessage, HttpStatus.BAD_REQUEST);
-   }
-   
+	@ExceptionHandler(value = AccountNotFoundException.class)
+	public ResponseEntity<Object> exception(AccountNotFoundException exception) {
+		HashMap<String, String> responseMessage = new HashMap<>();
+		responseMessage.put("erro:", "conta não encontrada para o usuário informado");
+		return new ResponseEntity<>(responseMessage, HttpStatus.BAD_REQUEST);
+	}
+
 }
